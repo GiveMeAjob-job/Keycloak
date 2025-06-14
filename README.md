@@ -21,3 +21,4 @@ The [architecture diagram](docs/architecture.md) illustrates the main components
 ## Infrastructure Deployment
 
 Terraform files under [`infra/`](infra/) provision a VPC, subnets, a bastion host, security groups, S3 buckets for backups and CloudTrail logging. Refer to `infra/README.md` for usage instructions.
+=======
