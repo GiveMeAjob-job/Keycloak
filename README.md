@@ -45,3 +45,13 @@ make helm-package # lint and package Helm charts into dist/charts
 4. Log in via the AWS CLI (MFA session) and run `terraform init` inside [`infra/`](infra/) to set up the remote state.
 5. Apply the configuration with `terraform apply`.
 
+
+## Bear Review Backend
+
+A minimal FastAPI service is located under `bear_review_api`. Run it locally with:
+
+```bash
+uvicorn bear_review_api.app.main:app --reload
+```
+
+Celery tasks use Redis as the broker. See `bear_review_api/app/services/tasks.py`.
