@@ -1,0 +1,17 @@
+{
+  "name": "@auth/unified-middleware",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.0"
+  },
+  "scripts": {
+    "test": "npx jest"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "jose": "^6.0.11"
+  }
+}
