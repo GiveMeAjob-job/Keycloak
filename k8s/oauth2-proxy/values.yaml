@@ -1,0 +1,9 @@
+config:
+  existingSecret: oauth2-proxy
+  extraArgs:
+    provider: oidc
+    set-authorization-header: "true"
+    pass-authorization-header: "true"
+    pass-access-token: "true"
+    set-xauthrequest: "true"
+    whitelist-domain: .example.com

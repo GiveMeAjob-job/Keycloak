@@ -1,0 +1,8 @@
+controller:
+  enableModsecurity: true
+  enableOWASPModsecurityCRS: true
+  config:
+    enable-modsecurity: "true"
+    modsecurity-snippet: |
+      SecRuleEngine On
+    limit-req: "20r/s"
