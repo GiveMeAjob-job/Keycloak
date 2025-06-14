@@ -1,0 +1,10 @@
+# Example variables file
+region = "us-east-1"
+ami = "ami-1234567890abcdef0"
+key_name = "my-key"
+public_key_path = "~/.ssh/id_rsa.pub"
+backup_bucket = "my-keycloak-backups"
+trail_bucket = "my-cloudtrail-logs"
+state_bucket = "my-tf-state"
+state_lock_table = "terraform-lock"
+office_cidr = "203.0.113.0/24"
