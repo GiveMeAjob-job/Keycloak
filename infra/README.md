@@ -11,7 +11,8 @@ This directory contains Terraform code used to provision the development environ
 
 1. Copy `terraform.tfvars.example` to `terraform.tfvars` and fill in the required variables, including the S3 bucket and DynamoDB table used for remote state.
 2. Run `terraform init` to download providers and configure the backend.
-3. Execute `terraform apply` to create the resources.
+
+
 
 The infrastructure includes:
 
@@ -22,5 +23,6 @@ The infrastructure includes:
 - S3 buckets for backups and CloudTrail logs (versioned and encrypted)
 - CloudTrail and GuardDuty for auditing API calls and threats
 - A placeholder EKS cluster with zero nodes
+rail for auditing API calls
 
 Destroy the environment with `terraform destroy` when finished.

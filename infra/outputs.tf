@@ -8,6 +8,7 @@ output "public_subnet_ids" {
 
 output "private_subnet_ids" {
   value = [for s in aws_subnet.private : s.id]
+
 }
 
 output "bastion_ip" {
@@ -17,3 +18,4 @@ output "bastion_ip" {
 output "nat_gateway_id" {
   value = aws_nat_gateway.ngw.id
 }
+

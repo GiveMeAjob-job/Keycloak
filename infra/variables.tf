@@ -24,6 +24,7 @@ variable "azs" {
   default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
 }
 
+
 variable "az" {
   description = "Availability zone"
   default     = "us-east-1a"
@@ -66,3 +67,4 @@ variable "office_cidr" {
   description = "CIDR for office network access"
   default     = "0.0.0.0/0"
 }
+

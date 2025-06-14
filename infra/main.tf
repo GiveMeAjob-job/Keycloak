@@ -12,6 +12,7 @@ terraform {
     region         = var.region
     dynamodb_table = var.state_lock_table
   }
+
 }
 
 provider "aws" {
@@ -22,12 +23,7 @@ locals {
   azs = var.azs
 }
 
-resource "aws_vpc" "main" {
-  cidr_block = var.vpc_cidr
-  tags = {
-    Name = "keycloak-vpc"
-  }
-}
+
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
@@ -83,8 +79,15 @@ resource "aws_subnet" "public" {
   availability_zone       = each.value
   tags = {
     Name = "public-${each.value}"
-  }
-}
+=======
+resource "aws_subnet" "public" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.public_subnet_cidr
+  map_public_ip_on_launch = true
+  availability_zone = var.az
+  tags = {
+    Name = "public-subnet"
+
 
 resource "aws_subnet" "private" {
   for_each          = { for idx, az in local.azs : idx => az }
@@ -93,6 +96,7 @@ resource "aws_subnet" "private" {
   availability_zone = each.value
   tags = {
     Name = "private-${each.value}"
+
   }
 }
 
@@ -106,6 +110,7 @@ resource "aws_security_group" "keycloak" {
     to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.main.cidr_block]
+
   }
 
   egress {
@@ -173,6 +178,7 @@ resource "aws_security_group" "db" {
     security_groups = [aws_security_group.k8s.id]
   }
 
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -216,6 +222,7 @@ resource "aws_instance" "bastion" {
 #!/bin/bash
 yum install -y awscli
 EOF
+
   tags = {
     Name = "bastion-host"
   }
@@ -228,6 +235,7 @@ resource "aws_key_pair" "bastion" {
 
 resource "aws_s3_bucket" "backups" {
   bucket        = var.backup_bucket
+
   force_destroy = true
   tags = {
     Name = "keycloak-backups"
@@ -292,6 +300,7 @@ resource "aws_s3_bucket_public_access_block" "trail" {
   restrict_public_buckets = true
 }
 
+
 resource "aws_cloudtrail" "main" {
   name                          = "keycloak-trail"
   s3_bucket_name                = aws_s3_bucket.trail_logs.id
@@ -329,5 +338,6 @@ resource "aws_iam_role_policy" "cloudtrail" {
       Resource = "${aws_cloudwatch_log_group.trail.arn}:*"
     }]
   })
+
 }
 

@@ -18,6 +18,7 @@ This Keycloak instance is planned to integrate with multiple SaaS applications. 
 
 The [architecture diagram](docs/architecture.md) illustrates the main components and network layout used in the development environment. A Draw.io source is also provided at `docs/system-arch-v1.drawio` for further editing.
 
+
 ## Infrastructure Deployment
 
 Terraform files under [`infra/`](infra/) provision a VPC, subnets, a bastion host, security groups, S3 buckets for backups and CloudTrail logging. Refer to `infra/README.md` for usage instructions.
@@ -29,3 +30,4 @@ Terraform files under [`infra/`](infra/) provision a VPC, subnets, a bastion hos
 3. Prepare an S3 bucket and DynamoDB table for the Terraform state backend.
 4. Log in via the AWS CLI (MFA session) and run `terraform init` inside [`infra/`](infra/) to set up the remote state.
 5. Apply the configuration with `terraform apply`.
+
