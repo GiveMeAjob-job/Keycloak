@@ -1,0 +1,29 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          output-file: sbom.spdx.json
+      - name: Sign Image
+        run: cosign sign ghcr.io/example/keycloak
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: sbom.spdx.json
+      - name: Upload Chart
+        run: aws s3 cp dist/charts s3://my-artifacts/ --recursive
+      - name: Notify Slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: release
+          payload: '{"text":"New release ${{ github.ref_name }} published"}'

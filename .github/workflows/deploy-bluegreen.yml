@@ -1,0 +1,25 @@
+name: Deploy BlueGreen
+
+on:
+  workflow_dispatch:
+    inputs:
+      color:
+        description: 'Deployment color'
+        required: true
+        default: 'green'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Kubernetes
+        uses: azure/setup-kubectl@v3
+      - name: Deploy
+        run: |
+          COLOR=${{ github.event.inputs.color }} ./scripts/bluegreen_deploy.sh
+      - name: Smoke Test
+        run: ./k6/smoke.sh
+      - name: Rollback on failure
+        if: failure()
+        run: make rollback ENV=prod REVISION=$(helm history keycloak -n prod | awk 'NR==2{print $1}')
