@@ -9,3 +9,7 @@ state_bucket = "my-tf-state"
 state_lock_table = "terraform-lock"
 office_cidr = "203.0.113.0/24"
 
+rds_identifier = "keycloak-rds"
+rds_instance_class = "db.t3.medium"
+rds_password = "change-me"
+rds_kms_key_id = "arn:aws:kms:region:acct:key/1234"

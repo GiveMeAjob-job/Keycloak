@@ -1,0 +1,22 @@
+name: Security Scan
+on:
+  pull_request:
+  schedule:
+    - cron: '0 3 * * 1'
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Trivy Image Scan
+        uses: aquasecurity/trivy-action@v0.12.0
+        with:
+          image-ref: ghcr.io/org/bear-review:${{ github.sha }}
+          exit-code: '1'
+          severity: 'HIGH,CRITICAL'
+      - name: Snyk Scan
+        uses: snyk/snyk@master
+        with:
+          command: test
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

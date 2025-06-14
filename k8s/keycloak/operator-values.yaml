@@ -1,0 +1,7 @@
+# Values for installing the Keycloak Operator via Helm
+# Helm repo: https://codecentric.github.io/helm-charts
+image:
+  tag: "24.0.0"
+operator:
+  watchNamespaces:
+    - "keycloak"

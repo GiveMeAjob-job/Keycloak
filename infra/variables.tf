@@ -68,3 +68,21 @@ variable "office_cidr" {
   default     = "0.0.0.0/0"
 }
 
+
+variable "rds_identifier" {
+  description = "Identifier for the Keycloak RDS instance"
+}
+
+variable "rds_instance_class" {
+  description = "RDS instance class"
+  default     = "db.t3.medium"
+}
+
+variable "rds_password" {
+  description = "Master password for RDS"
+  sensitive   = true
+}
+
+variable "rds_kms_key_id" {
+  description = "KMS key ID for RDS encryption"
+}
