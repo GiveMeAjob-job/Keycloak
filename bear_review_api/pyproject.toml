@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "bear_review_api"
+version = "0.1.0"
+description = "Bear Review backend service"
+authors = ["Bear Team"]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+fastapi = "^0.110"
+uvicorn = {extras = ["standard"], version = "^0.29"}
+sqlalchemy = "^2.0"
+alembic = "^1.13"
+pydantic = "^2.6"
+python-jose = "^3.3"
+celery = {extras = ["redis"], version = "^5.3"}
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.1"
+pytest-asyncio = "^0.23"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
