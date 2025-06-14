@@ -1,0 +1,9 @@
+[project]
+name = "unified_auth"
+version = "0.1.0"
+description = "JWT verification utilities"
+requires-python = ">=3.9"
+dependencies = ["python-jose", "httpx"]
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

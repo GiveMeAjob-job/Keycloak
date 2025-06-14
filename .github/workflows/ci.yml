@@ -1,0 +1,38 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      kc:
+        image: quay.io/keycloak/keycloak:24.0
+        env:
+          KEYCLOAK_ADMIN: admin
+          KEYCLOAK_ADMIN_PASSWORD: admin
+        options: >-
+          --health-cmd="/opt/keycloak/bin/kc.sh show-config" --health-interval=10s --health-timeout=5s --health-retries=5
+        ports:
+          - 8080:8080
+        command: ["start-dev"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install Node deps
+        run: |
+          cd packages/unified-middleware && npm install && cd ../../
+      - name: Run Node tests
+        run: |
+          cd packages/unified-middleware && npx jest && cd ../../
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Python deps
+        run: |
+          pip install -e python
+          pip install pytest
+      - name: Run PyTest
+        run: pytest -q

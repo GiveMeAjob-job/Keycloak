@@ -1,4 +1,24 @@
 {
-  "realm": "mysaas",
-  "enabled": true
+  "realm": "unified-apps-realm",
+  "enabled": true,
+  "registrationEmailAsUsername": true,
+  "verifyEmail": true,
+  "clients": [
+    {
+      "clientId": "bear-review-spa",
+      "publicClient": true,
+      "redirectUris": [
+        "https://bearreview.dev/login/callback"
+      ],
+      "webOrigins": ["*"]
+    },
+    {
+      "clientId": "mech-exo-api",
+      "secret": "CHANGE_ME",
+      "serviceAccountsEnabled": true,
+      "redirectUris": [
+        "https://mech-exo.dev/login/callback"
+      ]
+    }
+  ]
 }

@@ -5,14 +5,16 @@ This repository hosts the configuration and infrastructure files to run a Keyclo
 ## Getting Started
 
 1. Install Docker and Docker Compose.
-2. Run `docker compose up -d` in this directory.
+2. Execute `./scripts/kc-up.sh` to start the stack.
 3. Open `http://localhost:8080/` and log in with user **admin** / **admin**.
 
 The development setup uses a Postgres container to persist data. The `keycloak/realm-export.json` file contains a minimal realm that will be imported on startup.
+Backups can be created with `./scripts/backup_kc.sh` which dumps the database to `./backups/`.
 
 ## Project Overview
 
 This Keycloak instance is planned to integrate with multiple SaaS applications. For more details see the project plan in the repository history.
+Documentation for the identity service is available at [docs/identity-service.md](docs/identity-service.md).
 
 ## Architecture
 
