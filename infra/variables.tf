@@ -18,6 +18,13 @@ variable "private_subnet_cidr" {
   default     = "10.0.2.0/24"
 }
 
+variable "azs" {
+  description = "Availability zones to use"
+  type        = list(string)
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c"]
+}
+
+
 variable "az" {
   description = "Availability zone"
   default     = "us-east-1a"
@@ -47,3 +54,17 @@ variable "backup_bucket" {
 variable "trail_bucket" {
   description = "S3 bucket for CloudTrail logs"
 }
+
+variable "state_bucket" {
+  description = "S3 bucket for Terraform state"
+}
+
+variable "state_lock_table" {
+  description = "DynamoDB table for state locking"
+}
+
+variable "office_cidr" {
+  description = "CIDR for office network access"
+  default     = "0.0.0.0/0"
+}
+

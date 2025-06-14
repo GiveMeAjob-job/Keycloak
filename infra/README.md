@@ -9,16 +9,20 @@ This directory contains Terraform code used to provision the development environ
 
 ## Usage
 
-1. Copy `terraform.tfvars.example` to `terraform.tfvars` and fill in the required variables.
-2. Run `terraform init` to download providers.
-3. Execute `terraform apply` to create the resources.
+1. Copy `terraform.tfvars.example` to `terraform.tfvars` and fill in the required variables, including the S3 bucket and DynamoDB table used for remote state.
+2. Run `terraform init` to download providers and configure the backend.
+
+
 
 The infrastructure includes:
 
-- A new VPC with public and private subnets
-- A bastion EC2 instance with your provided SSH key
-- Security groups for Keycloak and SSH access
-- S3 buckets for backups and CloudTrail logs
-- A CloudTrail trail for auditing API calls
+- A new VPC with three public and three private subnets across multiple AZs
+- A NAT gateway for outbound internet access
+- A bastion EC2 instance (managed via Session Manager) with your provided SSH key
+- Security groups for Keycloak, Kubernetes workloads and the database
+- S3 buckets for backups and CloudTrail logs (versioned and encrypted)
+- CloudTrail and GuardDuty for auditing API calls and threats
+- A placeholder EKS cluster with zero nodes
+rail for auditing API calls
 
 Destroy the environment with `terraform destroy` when finished.
