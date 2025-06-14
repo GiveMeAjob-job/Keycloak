@@ -1,0 +1,10 @@
+prometheus-node-exporter:
+  enabled: true
+alertmanager:
+  config:
+    route:
+      receiver: critical-slack
+    receivers:
+      - name: critical-slack
+        slack_configs:
+          - api_url: $SLACK_URL

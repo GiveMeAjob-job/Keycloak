@@ -1,0 +1,40 @@
+name: Docker Build
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/setup-qemu-action@v2
+      - uses: docker/setup-buildx-action@v2
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        run: docker buildx bake --push
+        env:
+          PIP_INDEX_URL: ${{ secrets.PIP_INDEX_URL }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  ecr-copy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/main' }}
+    steps:
+      - uses: aws-actions/amazon-ecr-login@v2
+        with:
+          mask-password: true
+      - name: Copy to ECR
+        run: |
+          docker pull ghcr.io/org/bear-review:${{ github.sha }}
+          docker tag ghcr.io/org/bear-review:${{ github.sha }} ${{ env.ECR_REGISTRY }}/bear-review:latest
+          docker push ${{ env.ECR_REGISTRY }}/bear-review:latest
+          docker pull ghcr.io/org/mech-exo:${{ github.sha }}
+          docker tag ghcr.io/org/mech-exo:${{ github.sha }} ${{ env.ECR_REGISTRY }}/mech-exo:stable
+          docker push ${{ env.ECR_REGISTRY }}/mech-exo:stable
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}

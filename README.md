@@ -1,5 +1,8 @@
 # Keycloak Identity Service
 
+![Frontend CI](https://github.com/org/repo/actions/workflows/frontend.yml/badge.svg)
+![Backend CI](https://github.com/org/repo/actions/workflows/backend.yml/badge.svg)
+
 This repository hosts the configuration and infrastructure files to run a Keycloak instance that will serve as the unified authentication service for Bear_Review and Mech-Exo.
 
 ## Getting Started
@@ -24,6 +27,15 @@ The [architecture diagram](docs/architecture.md) illustrates the main components
 ## Infrastructure Deployment
 
 Terraform files under [`infra/`](infra/) provision a VPC, subnets, a bastion host, security groups, S3 buckets for backups and CloudTrail logging. Refer to `infra/README.md` for usage instructions.
+
+## Local Utilities
+
+Use the provided Makefile to run common tasks:
+
+```bash
+make kind-test    # deploys manifests on a local kind cluster
+make helm-package # lint and package Helm charts into dist/charts
+```
 
 ## Initialization
 
