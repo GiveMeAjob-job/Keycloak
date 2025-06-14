@@ -1,0 +1,23 @@
+{
+  "uid": "business-kpi",
+  "title": "Business KPI",
+  "tags": ["business", "kpi"],
+  "timezone": "browser",
+  "schemaVersion": 37,
+  "version": 1,
+  "refresh": "1m",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Active Users",
+      "targets": [{"expr": "app_active_users"}],
+      "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4}
+    },
+    {
+      "type": "stat",
+      "title": "Daily Revenue",
+      "targets": [{"expr": "app_daily_revenue"}],
+      "gridPos": {"x": 6, "y": 0, "w": 6, "h": 4}
+    }
+  ]
+}
