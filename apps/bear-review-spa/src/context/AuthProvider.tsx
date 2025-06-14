@@ -2,10 +2,10 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { UserManager, User } from 'oidc-client-ts';
 
 const config = {
-  authority: 'https://example.com/realms/bear',
+  authority: 'http://localhost:8080/realms/unified-apps-realm',
   client_id: 'bear-review-spa',
-  redirect_uri: window.location.origin,
-  silent_redirect_uri: window.location.origin + '/auth-silent.html',
+  redirect_uri: `${window.location.origin}/callback`,
+  silent_redirect_uri: `${window.location.origin}/auth-silent.html`,
   response_type: 'code',
   scope: 'openid profile',
 };
