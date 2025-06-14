@@ -1,0 +1,6 @@
+:root {
+  --size-base: 1rem;
+  --radius-base: 0.5rem;
+  --spacing-base: 1rem;
+  --shadow-base: 0 2px 4px rgba(0,0,0,0.1);
+}
