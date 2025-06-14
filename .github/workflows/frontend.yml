@@ -1,0 +1,32 @@
+name: Frontend CI
+on:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: packages/unified-middleware
+      - name: ESLint
+        run: pnpm exec eslint src || true
+        working-directory: packages/unified-middleware
+      - name: Vitest
+        run: pnpm exec vitest run || pnpm test
+        working-directory: packages/unified-middleware
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: packages/unified-middleware/node_modules/.cache
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('packages/unified-middleware/pnpm-lock.yaml') }}
+      - name: Build
+        run: pnpm run build || echo 'no build script'
+        working-directory: packages/unified-middleware

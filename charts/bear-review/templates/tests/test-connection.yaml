@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "bear-review.fullname" . }}-test-connection"
+  labels:
+    {{- include "bear-review.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "bear-review.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

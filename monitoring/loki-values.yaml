@@ -1,0 +1,2 @@
+loki:
+  retentionPeriod: 720h # 30d
