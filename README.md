@@ -13,3 +13,12 @@ The development setup uses a Postgres container to persist data. The `keycloak/r
 ## Project Overview
 
 This Keycloak instance is planned to integrate with multiple SaaS applications. For more details see the project plan in the repository history.
+
+## Architecture
+
+The [architecture diagram](docs/architecture.md) illustrates the main components and network layout used in the development environment.
+
+## Infrastructure Deployment
+
+Terraform files under [`infra/`](infra/) provision a VPC, subnets, a bastion host, security groups, S3 buckets for backups and CloudTrail logging. Refer to `infra/README.md` for usage instructions.
+=======
