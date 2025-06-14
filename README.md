@@ -55,3 +55,13 @@ uvicorn bear_review_api.app.main:app --reload
 ```
 
 Celery tasks use Redis as the broker. See `bear_review_api/app/services/tasks.py`.
+
+## Frontend SPA
+
+Located under `apps/bear-review-spa`.
+
+```bash
+pnpm dev       # start dev server
+pnpm test      # run unit tests
+pnpm build     # build for production
+```
